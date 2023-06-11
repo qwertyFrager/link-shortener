@@ -125,7 +125,7 @@ def redirection(shorthash):
     if mainLink:
         return redirect(mainLink.mainlink)
     else:
-        return redirect('http://192.168.3.2:3000/404')
+        return redirect('https://link-shortener-production-0bf0.up.railway.app/404')
 
 
 @app.route('/404')
