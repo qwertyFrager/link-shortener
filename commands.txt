@@ -18,3 +18,5 @@ npm install bootstrap bootstrap-vue
 pip install selenium
 
 npm install clipboard
+
+pip install gunicorn
