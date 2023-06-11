@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import chromedriver_autoinstaller
 import tempfile
 import os
@@ -99,12 +100,10 @@ def getScreensot(url):
 
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
 
-    current_path = os.environ.get('PATH', '')
-    chrome_executable_path = '/114/chromedriver.exe'
-    os.environ['PATH'] = current_path + os.pathsep + chrome_executable_path
-    print("!!!" + os.environ['PATH'] + "!!!")
+    chrome_executable_path = os.path.join(project_dir, 'chromedriver')
+    service = Service(chrome_executable_path)
 
-    browser = webdriver.Chrome(options=chrome_options)
+    browser = webdriver.Chrome(service=service, options=chrome_options)
     browser.get(url)
     browser.save_screenshot(temp_file.name)
     
