@@ -100,8 +100,9 @@ def getScreensot(url):
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
 
     current_path = os.environ.get('PATH', '')
-    chrome_executable_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromedriver')
+    chrome_executable_path = '/114/chromedriver.exe'
     os.environ['PATH'] = current_path + os.pathsep + chrome_executable_path
+    print("!!!" + os.environ['PATH'] + "!!!")
 
     browser = webdriver.Chrome(options=chrome_options)
     browser.get(url)
