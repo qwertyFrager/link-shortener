@@ -86,7 +86,7 @@ def getShortedLink(mainLink):
 #    return temp_file
 
 
-def getScreensot(url):    
+def getScreensot(url):
     chromedriver_autoinstaller.install()
 
     chrome_options = Options()
@@ -94,6 +94,10 @@ def getScreensot(url):
     chrome_options.add_argument('--no-sandbox')  # Необходимо для запуска Chrome в Docker-контейнерах
 
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
+
+    current_path = os.environ.get('PATH', '')
+    chrome_executable_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromedriver')
+    os.environ['PATH'] = current_path + os.pathsep + chrome_executable_path
 
     browser = webdriver.Chrome(options=chrome_options)
     browser.get(url)
