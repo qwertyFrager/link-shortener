@@ -20,3 +20,5 @@ pip install selenium
 npm install clipboard
 
 pip install gunicorn
+
+npm run build
