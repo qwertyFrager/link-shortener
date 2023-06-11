@@ -87,7 +87,11 @@ def getShortedLink(mainLink):
 
 
 def getScreensot(url):
-    chromedriver_autoinstaller.install()
+    # Получение пути к каталогу проекта
+    project_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Установка пути к ChromeDriver с помощью chromedriver_autoinstaller
+    chromedriver_autoinstaller.install(path=project_dir)
 
     chrome_options = Options()
     chrome_options.add_argument('--headless')  # Запуск Chrome в режиме Headless
