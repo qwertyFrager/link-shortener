@@ -84,12 +84,6 @@ def getScreensot(url):
     return temp_file
 
 
-#DB creation
-@app.before_first_request
-def create_db():
-    db.create_all()
-
-
 #Routes
 @app.route('/putimage/<id>', methods=['PUT'])
 def put_image(id):
@@ -145,5 +139,8 @@ def collision_page():
 
  
 if __name__ == '__main__':
+    #DB creation
+    with app.app_context():
+        db.create_all()
     #app.run(host='192.168.3.2', port=3000, debug=True)
     app.run(host='0.0.0.0', port=3000, debug=True)
