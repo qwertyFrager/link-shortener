@@ -63,7 +63,8 @@
             this.checkValidUrl(this.mainLink).then(resp =>{
                 if(resp===true){      
                     fetch(
-                        'http://192.168.3.2:8080/send',
+                        //'http://192.168.3.2:8080/send',
+                        '/send',
                         {
                             method: 'POST',
                             headers: {
@@ -73,7 +74,8 @@
                         })
                         .then(resp => resp.json()) 
                         .then(data => {
-                        this.shortLink = 'http://192.168.3.2:3000/r/'+data.shortlink;               
+                        //this.shortLink = 'http://192.168.3.2:3000/r/'+data.shortlink;               
+                        this.shortLink = 'https://link-shortener-production-0bf0.up.railway.app/r/'+data.shortlink;
                         this.putImage(data.id)
                         })                      
                         .catch(error => console.log(error))     
@@ -87,7 +89,8 @@
       },
       putImage(id){
         fetch(
-            `http://192.168.3.2:8080/putimage/${id}`,
+            //`http://192.168.3.2:8080/putimage/${id}`,
+            `/putimage/${id}`,
             {
                 method: 'PUT',
                 headers: {

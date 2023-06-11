@@ -138,4 +138,5 @@ def collision_page():
 
  
 if __name__ == '__main__':
-    app.run(host='192.168.3.2', port=3000, debug=True)
+    #app.run(host='192.168.3.2', port=3000, debug=True)
+    app.run(host='0.0.0.0', port=3000, debug=True)
