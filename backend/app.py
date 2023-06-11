@@ -15,7 +15,8 @@ import io
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:root@localhost:5432/flask_db"
+#app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:root@localhost:5432/flask_db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:iXSr24bTOFu0BhzwdxSZ@containers-us-west-72.railway.app:7606/railway"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -81,6 +82,12 @@ def getScreensot(url):
     
     browser.quit()
     return temp_file
+
+
+#DB creation
+@app.before_first_request
+def create_db():
+    db.create_all()
 
 
 #Routes
