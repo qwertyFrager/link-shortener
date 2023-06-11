@@ -3,6 +3,8 @@ from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import chromedriver_autoinstaller
 import tempfile
 import os
 
@@ -73,10 +75,27 @@ def getShortedLink(mainLink):
     return "collision"
 
 
+#def getScreensot(url):    
+#    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
+#
+#    browser = webdriver.Firefox()
+#    browser.get(url)
+#    browser.save_screenshot(temp_file.name)
+#    
+#    browser.quit()
+#    return temp_file
+
+
 def getScreensot(url):    
+    chromedriver_autoinstaller.install()
+
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')  # Запуск Chrome в режиме Headless
+    chrome_options.add_argument('--no-sandbox')  # Необходимо для запуска Chrome в Docker-контейнерах
+
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
 
-    browser = webdriver.Firefox()
+    browser = webdriver.Chrome(options=chrome_options)
     browser.get(url)
     browser.save_screenshot(temp_file.name)
     

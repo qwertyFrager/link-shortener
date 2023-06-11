@@ -22,3 +22,5 @@ npm install clipboard
 pip install gunicorn
 
 npm run build
+
+chromedriver-autoinstaller
