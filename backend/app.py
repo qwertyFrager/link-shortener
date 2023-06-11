@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, jsonify, send_file
+from flask import Flask, redirect, request, jsonify, send_file, render_template
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 
@@ -13,7 +13,7 @@ import re
 import io
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:root@localhost:5432/flask_db"
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:iXSr24bTOFu0BhzwdxSZ@containers-us-west-72.railway.app:7606/railway"
@@ -85,6 +85,11 @@ def getScreensot(url):
 
 
 #Routes
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 @app.route('/putimage/<id>', methods=['PUT'])
 def put_image(id):
     row = InfoModel.query.get(id)
