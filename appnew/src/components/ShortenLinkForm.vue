@@ -96,7 +96,8 @@
                 headers: {
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify('')
+                body: JSON.stringify(''),
+                timeout: 60000
             })
             .then(resp => resp.blob())
             .then(blob => {

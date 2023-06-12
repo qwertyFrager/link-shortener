@@ -3,11 +3,6 @@ from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 
 from selenium import webdriver
-#from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-#from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.chrome.options import Options
-#from selenium.webdriver.chrome.service import Service
-#import chromedriver_autoinstaller
 import tempfile
 import os
 
@@ -19,6 +14,7 @@ import io
 
 
 app = Flask(__name__, static_folder='static')
+app.config['TIMEOUT'] = 60
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:root@localhost:5432/flask_db"
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:iXSr24bTOFu0BhzwdxSZ@containers-us-west-72.railway.app:7606/railway"
