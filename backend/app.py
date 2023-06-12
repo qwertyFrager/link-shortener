@@ -3,9 +3,11 @@ from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 
 from selenium import webdriver
+#from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+#from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-import chromedriver_autoinstaller
+#from selenium.webdriver.chrome.service import Service
+#import chromedriver_autoinstaller
 import tempfile
 import os
 
@@ -76,39 +78,44 @@ def getShortedLink(mainLink):
     return "collision"
 
 
-#def getScreensot(url):    
-#    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
-#
-#    browser = webdriver.Firefox()
-#    browser.get(url)
-#    browser.save_screenshot(temp_file.name)
-#    
-#    browser.quit()
-#    return temp_file
-
-
-def getScreensot(url):
-    # Получение пути к каталогу проекта
-    project_dir = os.path.dirname(os.path.abspath(__file__))
-
-    # Установка пути к ChromeDriver с помощью chromedriver_autoinstaller
-    chromedriver_autoinstaller.install(path=project_dir)
-
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')  # Запуск Chrome в режиме Headless
-    chrome_options.add_argument('--no-sandbox')  # Необходимо для запуска Chrome в Docker-контейнерах
-
+def getScreensot(url):    
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
 
-    chrome_executable_path = os.path.join(project_dir, 'chromedriver')
-    service = Service(chrome_executable_path)
+    options = webdriver.ChromeOptions()
 
-    browser = webdriver.Chrome(service=service, options=chrome_options)
+    browser = webdriver.Remote(
+        command_executor='http://84.38.182.195:4444/wd/hub',
+        options=options,
+    )
     browser.get(url)
     browser.save_screenshot(temp_file.name)
     
     browser.quit()
     return temp_file
+
+
+#def getScreensot(url):
+#    # Получение пути к каталогу проекта
+#    project_dir = os.path.dirname(os.path.abspath(__file__))
+#
+#    # Установка пути к ChromeDriver с помощью chromedriver_autoinstaller
+#    chromedriver_autoinstaller.install(path=project_dir)
+#
+#    chrome_options = Options()
+#    chrome_options.add_argument('--headless')  # Запуск Chrome в режиме Headless
+#    chrome_options.add_argument('--no-sandbox')  # Необходимо для запуска Chrome в Docker-контейнерах
+#
+#    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
+#
+#    chrome_executable_path = os.path.join(project_dir, 'chromedriver')
+#    service = Service(chrome_executable_path)
+#
+#    browser = webdriver.Chrome(service=service, options=chrome_options)
+#    browser.get(url)
+#    browser.save_screenshot(temp_file.name)
+#   
+#    browser.quit()
+#    return temp_file
 
 
 #Routes
