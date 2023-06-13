@@ -23,4 +23,6 @@ pip install gunicorn
 
 npm run build
 
-chromedriver-autoinstaller
+pip install chromedriver-autoinstaller
+
+npm install vue-router

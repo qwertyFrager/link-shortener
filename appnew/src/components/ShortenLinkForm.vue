@@ -17,7 +17,8 @@
 -->
 
 <template>
-    <div>        
+    <div>      
+        <h1 class="mb-5 mt-5 text-center">Сервис сокращения ссылок</h1>  
         <b-form class="mb-5 text-center" inline @submit.prevent="generateShortLink">                    
             <label class="sr-only" for="input-link">Ваша ссылка:</label>
             <b-form-input class="mb-2 ms-2 me-2 w-50" id="input-link" v-model="mainLink" type="url" placeholder="https://example.com" pattern="https://.*" style="display: inline; width: auto; vertical-align: middle;" required></b-form-input>

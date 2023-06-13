@@ -3,6 +3,9 @@ from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 
 from selenium import webdriver
+#from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.support import expected_conditions as EC
+#from selenium.webdriver.common.by import By
 import tempfile
 import os
 
@@ -71,19 +74,24 @@ def getShortedLink(mainLink):
         if not shortLink:
             return hash
         count+=1
-    return "collision"
+    return redirect("https://link-shortener-production-0bf0.up.railway.app/collision")
 
 
 def getScreensot(url):    
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
 
-    options = webdriver.ChromeOptions()
+    options = webdriver.ChromeOptions()    
 
     browser = webdriver.Remote(
         command_executor='http://84.38.182.195:4444/wd/hub',
         options=options,
     )
     browser.get(url)
+
+    # Явное ожидание полной загрузки страницы
+    # wait = WebDriverWait(browser, 10)
+    # wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+
     browser.save_screenshot(temp_file.name)
     
     browser.quit()
@@ -115,8 +123,9 @@ def getScreensot(url):
 
 
 #Routes
-@app.route('/')
-def index():
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
     return render_template('index.html')
 
 
@@ -161,16 +170,17 @@ def redirection(shorthash):
     if mainLink:
         return redirect(mainLink.mainlink)
     else:
-        return redirect('https://link-shortener-production-0bf0.up.railway.app/404')
+        #return redirect('https://link-shortener-production-0bf0.up.railway.app/404')
+        return redirect('http://192.168.3.2:3000/404')
 
 
-@app.route('/404')
-def error_page():    
-    return f"Ссылка недействительна, такой страницы нет, обратитесь в поддержку!"
+#@app.route('/404')
+#def error_page():    
+#    return f"Ссылка недействительна, такой страницы нет, обратитесь в поддержку!"
 
-@app.route('/collision')
-def collision_page():    
-    return f"Коллизия хэш кода, обратитесь в поддержку!"
+#@app.route('/collision')
+#def collision_page():    
+#    return f"Коллизия хэш кода, обратитесь в поддержку!"
 
  
 if __name__ == '__main__':
